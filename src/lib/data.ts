@@ -121,6 +121,7 @@ export const NAV_LINKS = [
     ]
   },
   { name: "Industries", href: "/industries" },
+  { name: "Clients", href: "/clients" },
   { name: "Contact", href: "/contact" }
 ];
 

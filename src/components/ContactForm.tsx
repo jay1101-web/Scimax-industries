@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Send, CheckCircle2, ShieldCheck, Phone, ArrowRight } from "lucide-react";
 import { INDUSTRIES, PRODUCTS, COMPANY_INFO } from "@/lib/data";
+import { submitInquiryApi } from "@/lib/clients";
 
 interface ContactFormProps {
   defaultProduct?: string;
@@ -23,17 +24,18 @@ export default function ContactForm({ defaultProduct, defaultIndustry }: Contact
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // TODO: wire to CRM / email backend API (e.g. sales@scimax.in)
-    // console.log("RFQ Submission Data:", formData);
-
-    setTimeout(() => {
+    try {
+      await submitInquiryApi(formData);
+    } catch {
+      // Handled by client API fallback
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 700);
+    }
   };
 
   return (

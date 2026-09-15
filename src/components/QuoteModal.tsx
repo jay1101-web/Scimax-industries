@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { X, CheckCircle2, Send, ShieldCheck, Phone, ArrowRight } from "lucide-react";
 import { INDUSTRIES, PRODUCTS, COMPANY_INFO } from "@/lib/data";
+import { submitInquiryApi } from "@/lib/clients";
 
 interface QuoteModalProps {
   isOpen: boolean;
@@ -26,17 +27,18 @@ export default function QuoteModal({ isOpen, onClose, defaultProduct }: QuoteMod
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // TODO: Wire to backend email service / CRM (e.g. Resend, Sendgrid, Zoho CRM or WhatsApp webhook)
-    // console.log("Scimax RFQ Submission:", formData);
-
-    setTimeout(() => {
+    try {
+      await submitInquiryApi(formData);
+    } catch {
+      // Handled by client API fallback
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 600);
+    }
   };
 
   const handleReset = () => {

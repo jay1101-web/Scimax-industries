@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import TrustStats from "@/components/TrustStats";
+import ClientsSection from "@/components/ClientsSection";
 import { useLayoutModal } from "@/components/LayoutProvider";
 import { 
   PRODUCTS, 
@@ -346,7 +347,12 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          SECTION 5: PROBLEM → SOLUTION NARRATIVE (Light Theme High-Contrast Split)
+          SECTION 5: CLIENTS & MAJOR INSTALLATIONS SHOWCASE (FastAPI Backend Powered)
+         ========================================================================= */}
+      <ClientsSection />
+
+      {/* =========================================================================
+          SECTION 6: PROBLEM → SOLUTION NARRATIVE (Light Theme High-Contrast Split)
          ========================================================================= */}
       <section className="py-20 bg-white border-b border-slate-200/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -180,6 +180,9 @@ export default function Footer() {
                 <Link href="/industries" className="hover:text-[#26235E] transition-colors">Industries (14)</Link>
               </li>
               <li>
+                <Link href="/clients" className="hover:text-[#26235E] transition-colors">Clients &amp; Installations</Link>
+              </li>
+              <li>
                 <Link href="/products/centrifugal-blowers-fans#sizing-guide" className="hover:text-[#26235E] transition-colors">Technical Sizing Matrix</Link>
               </li>
               <li>
