@@ -12,7 +12,7 @@ import {
   Sparkles,
   Server
 } from "lucide-react";
-import { ClientItem, DEFAULT_CLIENTS_DATA, fetchClientsApi } from "@/lib/clients";
+import { ClientItem, DEFAULT_CLIENTS_DATA, fetchClientsApi, getClientsInstant } from "@/lib/clients";
 import { useLayoutModal } from "@/components/LayoutProvider";
 
 const SECTORS = [
@@ -29,30 +29,22 @@ const SECTORS = [
 export default function ClientsSection({ isFullPage = false }: { isFullPage?: boolean }) {
   const [activeSector, setActiveSector] = useState("all");
   const [clients, setClients] = useState<ClientItem[]>(DEFAULT_CLIENTS_DATA);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isBackendLive, setIsBackendLive] = useState(false);
   const { openQuoteModal } = useLayoutModal();
+
+  const handleSectorChange = (sectorId: string) => {
+    setActiveSector(sectorId);
+    // Instant 0ms memory update
+    setClients(getClientsInstant(sectorId));
+  };
 
   useEffect(() => {
     let isMounted = true;
-    async function loadData() {
-      setIsLoading(true);
-      try {
-        const data = await fetchClientsApi(activeSector);
-        if (isMounted) {
-          setClients(data);
-          // Check if response came from FastAPI
-          setIsBackendLive(true);
-        }
-      } catch {
-        if (isMounted) {
-          setIsBackendLive(false);
-        }
-      } finally {
-        if (isMounted) setIsLoading(false);
+    fetchClientsApi(activeSector).then((data) => {
+      if (isMounted && data) {
+        setClients(data);
       }
-    }
-    loadData();
+    }).catch(() => {});
+
     return () => {
       isMounted = false;
     };
@@ -121,7 +113,7 @@ export default function ClientsSection({ isFullPage = false }: { isFullPage?: bo
           {SECTORS.map((s) => (
             <button
               key={s.id}
-              onClick={() => setActiveSector(s.id)}
+              onClick={() => handleSectorChange(s.id)}
               className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                 activeSector === s.id
                   ? "bg-[#26235E] text-white shadow-md scale-102"

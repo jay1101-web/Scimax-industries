@@ -76,3 +76,15 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #F25920;
 }
+
+/* Hide Next.js Development Overlay / Turbopack Indicator */
+nextjs-portal, 
+[data-nextjs-dialog-overlay], 
+[data-nextjs-toast], 
+#__next-build-watcher,
+[data-nextjs-route-announcer] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+

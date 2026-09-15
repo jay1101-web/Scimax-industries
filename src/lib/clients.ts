@@ -189,17 +189,32 @@ export const DEFAULT_CLIENTS_DATA: ClientItem[] = [
   }
 ];
 
+// Instant synchronous retrieval (0ms latency, never blocks UI)
+export function getClientsInstant(sector?: string): ClientItem[] {
+  if (sector && sector.toLowerCase() !== "all") {
+    return DEFAULT_CLIENTS_DATA.filter(c => 
+      c.sector.toLowerCase().includes(sector.toLowerCase())
+    );
+  }
+  return DEFAULT_CLIENTS_DATA;
+}
+
 export async function fetchClientsApi(sector?: string): Promise<ClientItem[]> {
   try {
     const url = sector && sector !== "all" 
       ? `/api/clients?sector=${encodeURIComponent(sector)}` 
       : `/api/clients`;
     
+    // Strict 350ms timeout so the UI NEVER lags or waits on offline backend
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 350);
+
     const res = await fetch(url, {
       method: "GET",
       headers: { "Accept": "application/json" },
-      cache: "no-store"
+      signal: controller.signal
     });
+    clearTimeout(timeoutId);
 
     if (res.ok) {
       const data = await res.json();
@@ -208,16 +223,10 @@ export async function fetchClientsApi(sector?: string): Promise<ClientItem[]> {
       }
     }
   } catch {
-    // Graceful fallback to static data
+    // Instant fallback to local data
   }
 
-  // Filter fallback static list
-  if (sector && sector.toLowerCase() !== "all") {
-    return DEFAULT_CLIENTS_DATA.filter(c => 
-      c.sector.toLowerCase().includes(sector.toLowerCase())
-    );
-  }
-  return DEFAULT_CLIENTS_DATA;
+  return getClientsInstant(sector);
 }
 
 export async function submitInquiryApi(inquiryData: {
