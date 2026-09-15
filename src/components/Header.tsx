@@ -3,13 +3,13 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  Phone, 
-  Menu, 
-  X, 
-  ChevronDown, 
-  FileText, 
-  ShieldCheck, 
+import {
+  Phone,
+  Menu,
+  X,
+  ChevronDown,
+  FileText,
+  ShieldCheck,
   ArrowRight,
   Wind,
   Layers,
@@ -54,12 +54,11 @@ export default function Header({ onOpenQuoteModal }: HeaderProps) {
   };
 
   return (
-    <header 
-      className={`sticky top-0 z-40 w-full transition-all duration-300 ${
-        isScrolled 
-          ? "bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200/80 py-3" 
+    <header
+      className={`sticky top-0 z-40 w-full transition-all duration-300 ${isScrolled
+          ? "bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200/80 py-3"
           : "bg-white border-b border-gray-100 py-3.5"
-      }`}
+        }`}
     >
       {/* Top micro-bar for ISO credentials in clean light tone */}
       <div className="hidden lg:block bg-[#F8FAFC] text-slate-600 text-xs py-1.5 px-4 border-b border-slate-200/60">
@@ -76,15 +75,15 @@ export default function Header({ onOpenQuoteModal }: HeaderProps) {
           </div>
           <div className="flex items-center space-x-4">
             <span className="text-slate-500">Direct Sales Desk:</span>
-            <a 
-              href={`tel:${COMPANY_INFO.contacts.directSales.phoneRaw}`} 
+            <a
+              href={`tel:${COMPANY_INFO.contacts.directSales.phoneRaw}`}
               className="text-[#26235E] hover:text-[#F25920] font-bold transition-colors font-mono"
             >
               {COMPANY_INFO.contacts.directSales.phone} ({COMPANY_INFO.contacts.directSales.name})
             </a>
             <span className="text-slate-300">|</span>
-            <a 
-              href="mailto:sales@scimax.in" 
+            <a
+              href="mailto:sales@scimax.in"
               className="text-slate-600 hover:text-[#26235E] transition-colors"
             >
               sales@scimax.in
@@ -96,7 +95,7 @@ export default function Header({ onOpenQuoteModal }: HeaderProps) {
       {/* Main navigation container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          
+
           {/* Logo: Styled text "Sci" in Navy, "Max" in Orange, bold, tight tracking */}
           <Link href="/" className="flex items-center space-x-1 group">
             <div className="flex items-baseline tracking-tighter">
@@ -121,22 +120,21 @@ export default function Header({ onOpenQuoteModal }: HeaderProps) {
           <nav className="hidden lg:flex items-center space-x-1">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
-              
+
               if (link.children) {
                 return (
-                  <div 
-                    key={link.name} 
+                  <div
+                    key={link.name}
                     className="relative"
                     onMouseEnter={() => setProductsDropdownOpen(true)}
                     onMouseLeave={() => setProductsDropdownOpen(false)}
                   >
                     <Link
                       href={link.href}
-                      className={`inline-flex items-center px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors ${
-                        isActive 
-                          ? "text-[#F25920] bg-orange-50 font-bold" 
+                      className={`inline-flex items-center px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors ${isActive
+                          ? "text-[#F25920] bg-orange-50 font-bold"
                           : "text-slate-700 hover:text-[#26235E] hover:bg-slate-50"
-                      }`}
+                        }`}
                     >
                       <span>{link.name}</span>
                       <ChevronDown className="ml-1 w-4 h-4 text-slate-400 group-hover:rotate-180 transition-transform" />
@@ -173,8 +171,8 @@ export default function Header({ onOpenQuoteModal }: HeaderProps) {
                           })}
                         </div>
                         <div className="mt-1 p-2 bg-[#F8FAFC] rounded-xl border border-slate-100">
-                          <Link 
-                            href="/products" 
+                          <Link
+                            href="/products"
                             className="text-xs font-bold text-[#F25920] hover:text-[#D84813] flex items-center justify-between"
                           >
                             <span>Browse Complete Catalog</span>
@@ -191,11 +189,10 @@ export default function Header({ onOpenQuoteModal }: HeaderProps) {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors ${
-                    isActive 
-                      ? "text-[#F25920] bg-orange-50 font-bold" 
+                  className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-colors ${isActive
+                      ? "text-[#F25920] bg-orange-50 font-bold"
                       : "text-slate-700 hover:text-[#26235E] hover:bg-slate-50"
-                  }`}
+                    }`}
                 >
                   {link.name}
                 </Link>
@@ -253,7 +250,7 @@ export default function Header({ onOpenQuoteModal }: HeaderProps) {
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 top-[60px] sm:top-[68px] z-50 bg-white/98 backdrop-blur-md overflow-y-auto border-t border-slate-200 p-4 animate-in slide-in-from-right duration-200">
           <div className="space-y-4 pb-12">
-            
+
             {/* Direct Contact Banner */}
             <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-slate-200 text-slate-800">
               <p className="text-[11px] font-bold text-[#F25920] uppercase tracking-wider">
@@ -261,7 +258,7 @@ export default function Header({ onOpenQuoteModal }: HeaderProps) {
               </p>
               <div className="mt-1 flex items-center justify-between">
                 <span className="text-sm font-bold text-[#26235E]">{COMPANY_INFO.contacts.directSales.name}</span>
-                <a 
+                <a
                   href={`tel:${COMPANY_INFO.contacts.directSales.phoneRaw}`}
                   className="px-3 py-1 text-xs font-bold bg-[#F25920] rounded-lg text-white"
                 >
@@ -273,15 +270,15 @@ export default function Header({ onOpenQuoteModal }: HeaderProps) {
 
             {/* Links */}
             <div className="divide-y divide-slate-100">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="block py-3 text-base font-bold text-slate-800 hover:text-[#F25920]"
               >
                 Home
               </Link>
-              
-              <Link 
-                href="/about" 
+
+              <Link
+                href="/about"
                 className="block py-3 text-base font-bold text-slate-800 hover:text-[#F25920]"
               >
                 About Us
@@ -308,15 +305,15 @@ export default function Header({ onOpenQuoteModal }: HeaderProps) {
                 </div>
               </div>
 
-              <Link 
-                href="/industries" 
+              <Link
+                href="/industries"
                 className="block py-3 text-base font-bold text-slate-800 hover:text-[#F25920]"
               >
                 Industries We Serve (14+)
               </Link>
 
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="block py-3 text-base font-bold text-slate-800 hover:text-[#F25920]"
               >
                 Contact &amp; Plant Locations

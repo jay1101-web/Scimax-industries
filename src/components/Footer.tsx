@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { 
   MapPin, 
   Phone, 
@@ -73,16 +74,22 @@ export default function Footer() {
           
           {/* Column 1: Brand & Overview (4 cols) */}
           <div className="lg:col-span-4 space-y-5">
-            <Link href="/" className="inline-flex items-baseline tracking-tighter">
-              <span className="text-3xl font-extrabold text-[#26235E] tracking-tight">
-                Sci
-              </span>
-              <span className="text-3xl font-black text-[#F25920] tracking-tight">
-                Max
-              </span>
-              <span className="ml-2 text-xs font-bold text-slate-500 uppercase tracking-widest">
-                Industries
-              </span>
+            <Link href="/" className="inline-flex items-center space-x-2.5 group">
+              <Image
+                src="/images/logo.png"
+                alt="Scimax Industries Official Logo"
+                width={170}
+                height={75}
+                className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-102"
+              />
+              <div className="ml-1 pl-2.5 border-l border-slate-300 hidden sm:block">
+                <span className="block text-[11px] font-black tracking-wider text-[#26235E] uppercase leading-tight">
+                  Industries
+                </span>
+                <span className="block text-[9px] font-bold text-[#F25920] uppercase tracking-widest leading-none">
+                  Ahmedabad
+                </span>
+              </div>
             </Link>
 
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
