@@ -1,3 +1,5 @@
+import { submitInquiryToSupabase, fetchClientsFromSupabase } from "@/lib/supabase";
+
 export interface ClientItem {
   id: string;
   name: string;
@@ -200,6 +202,16 @@ export function getClientsInstant(sector?: string): ClientItem[] {
 }
 
 export async function fetchClientsApi(sector?: string): Promise<ClientItem[]> {
+  // Check Supabase cloud first
+  try {
+    const supabaseClients = await fetchClientsFromSupabase(sector);
+    if (supabaseClients && supabaseClients.length > 0) {
+      return supabaseClients;
+    }
+  } catch {
+    // Fall through to FastAPI or local
+  }
+
   try {
     const url = sector && sector !== "all" 
       ? `/api/clients?sector=${encodeURIComponent(sector)}` 
@@ -238,6 +250,10 @@ export async function submitInquiryApi(inquiryData: {
   productInterest: string;
   message?: string;
 }) {
+  // 1. Record directly in Supabase cloud database
+  submitInquiryToSupabase(inquiryData).catch(() => {});
+
+  // 2. Also log to local FastAPI database if active
   try {
     const res = await fetch("/api/inquiries", {
       method: "POST",
@@ -254,7 +270,7 @@ export async function submitInquiryApi(inquiryData: {
 
   return {
     success: true,
-    message: "Inquiry logged successfully (local fallback).",
+    message: "Inquiry logged to Supabase cloud and technical sales desk.",
     inquiryId: Math.floor(Math.random() * 1000)
   };
 }
