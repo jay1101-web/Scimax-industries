@@ -251,7 +251,11 @@ export async function submitInquiryApi(inquiryData: {
   message?: string;
 }) {
   // 1. Record directly in Supabase cloud database
-  submitInquiryToSupabase(inquiryData).catch(() => {});
+  try {
+    await submitInquiryToSupabase(inquiryData);
+  } catch (err) {
+    console.warn("Supabase inquiry submission fallback:", err);
+  }
 
   // 2. Also log to local FastAPI database if active
   try {

@@ -40,7 +40,7 @@ export async function submitInquiryToSupabase(data: {
   message?: string;
 }) {
   try {
-    const { data: inserted, error } = await supabase
+    const { error } = await supabase
       .from("inquiries")
       .insert([
         {
@@ -53,17 +53,16 @@ export async function submitInquiryToSupabase(data: {
           message: data.message || "",
           created_at: new Date().toISOString()
         }
-      ])
-      .select();
+      ]);
 
     if (error) {
-      console.warn("Supabase insert warning:", error.message);
+      console.error("Supabase insert error:", error.message, error.details);
       return { success: false, error: error.message };
     }
 
-    return { success: true, data: inserted };
+    return { success: true };
   } catch (err) {
-    console.warn("Supabase connection error:", err);
+    console.error("Supabase connection error:", err);
     return { success: false, error: "Network or configuration error" };
   }
 }
