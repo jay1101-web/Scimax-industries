@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { 
   Building2, 
   Target, 
@@ -256,7 +257,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Facilities Breakdown (Vatva Office & Mehsana Plant) */}
+      {/* Facilities Breakdown with Real Plant Photos */}
       <section className="py-16 sm:py-20 bg-[#F8FAFC] border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -269,38 +270,94 @@ export default function AboutPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
             {/* Facility 1: Registered Office */}
-            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
-              <div className="flex items-center space-x-3 text-[#26235E]">
-                <Building2 className="w-6 h-6 text-[#F25920]" />
-                <h3 className="text-xl font-bold">Registered Office &amp; Commercial Desk</h3>
-              </div>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                {COMPANY_INFO.facilities.registeredOffice.address}
-              </p>
-              <div className="pt-2 text-xs text-slate-500 border-t border-slate-100 flex items-center justify-between">
-                <span>Direct Sales &amp; Commercial Proposals</span>
-                <span className="font-bold text-[#26235E]">GIDC Vatva, Ahmedabad</span>
+            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+              <div className="p-8 space-y-4">
+                <div className="flex items-center space-x-3 text-[#26235E]">
+                  <Building2 className="w-6 h-6 text-[#F25920]" />
+                  <h3 className="text-xl font-bold">Registered Office &amp; Commercial Desk</h3>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  {COMPANY_INFO.facilities.registeredOffice.address}
+                </p>
+                <div className="pt-2 text-xs text-slate-500 border-t border-slate-100 flex items-center justify-between">
+                  <span>Direct Sales &amp; Commercial Proposals</span>
+                  <span className="font-bold text-[#26235E]">GIDC Vatva, Ahmedabad</span>
+                </div>
               </div>
             </div>
 
             {/* Facility 2: Manufacturing Plant */}
-            <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
-              <div className="flex items-center space-x-3 text-[#26235E]">
-                <Factory className="w-6 h-6 text-[#F25920]" />
-                <h3 className="text-xl font-bold">Heavy Engineering Manufacturing Plant</h3>
-              </div>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                {COMPANY_INFO.facilities.manufacturingPlant.address}
-              </p>
-              <div className="pt-2 text-xs text-slate-500 border-t border-slate-100 flex items-center justify-between">
-                <span>Fabrication, Dynamic Balancing &amp; Assembly</span>
-                <span className="font-bold text-[#26235E]">Kadi / Mehsana Highway</span>
+            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+              <div className="p-8 space-y-4">
+                <div className="flex items-center space-x-3 text-[#26235E]">
+                  <Factory className="w-6 h-6 text-[#F25920]" />
+                  <h3 className="text-xl font-bold">Heavy Engineering Manufacturing Plant</h3>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  {COMPANY_INFO.facilities.manufacturingPlant.address}
+                </p>
+                <div className="pt-2 text-xs text-slate-500 border-t border-slate-100 flex items-center justify-between">
+                  <span>Fabrication, Dynamic Balancing &amp; Assembly</span>
+                  <span className="font-bold text-[#26235E]">Kadi / Mehsana Highway</span>
+                </div>
               </div>
             </div>
 
+          </div>
+
+          {/* Photo Gallery of the Manufacturing Plant */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-12 gap-4 auto-rows-[200px] sm:auto-rows-[260px]">
+            <div className="md:col-span-7 relative rounded-2xl overflow-hidden group shadow-lg border border-slate-200">
+              <Image
+                src="/images/plant-aerial-1.jpg"
+                alt="Scimax Industries — Aerial View of Manufacturing Plant"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 60vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0E0C29]/70 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-4 left-4">
+                <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl border border-slate-200/90 shadow-lg">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#F25920] block">Aerial View</span>
+                  <span className="text-sm font-extrabold text-[#26235E]">Heavy Engineering Plant — Kadi</span>
+                </div>
+              </div>
+            </div>
+            <div className="md:col-span-5 relative rounded-2xl overflow-hidden group shadow-lg border border-slate-200">
+              <Image
+                src="/images/plant-front-1.jpg"
+                alt="Scimax Industries — Plant Front View"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 40vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0E0C29]/70 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-4 left-4">
+                <div className="bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-xl border border-slate-200/90 shadow-md">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500 block">Fabrication Bay</span>
+                  <span className="text-sm font-extrabold text-[#26235E]">Plant I — Front View</span>
+                </div>
+              </div>
+            </div>
+            <div className="md:col-span-12 relative rounded-2xl overflow-hidden group shadow-lg border border-slate-200">
+              <Image
+                src="/images/plant-aerial-2.jpg"
+                alt="Scimax Industries — Full Campus Panoramic"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 100vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0E0C29]/70 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-4 left-4">
+                <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl border border-orange-200/90 shadow-lg">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#F25920] block">360° Campus View</span>
+                  <span className="text-sm font-extrabold text-[#26235E]">15,000+ Sq. Ft. Manufacturing Campus — Kadi Highway</span>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>

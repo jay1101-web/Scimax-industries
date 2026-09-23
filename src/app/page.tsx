@@ -40,8 +40,15 @@ import {
   COMPANY_INFO
 } from "@/lib/data";
 
+const PLANT_IMAGES = [
+  { src: "/images/plant-front-1.jpg", alt: "Scimax Industries Manufacturing Plant — Front View", label: "Plant I — Kadi, Mehsana" },
+  { src: "/images/plant-aerial-1.jpg", alt: "Scimax Industries Plant — Aerial Drone Shot", label: "Aerial View — Heavy Engineering Bay" },
+  { src: "/images/plant-aerial-2.jpg", alt: "Scimax Industries Plant — Drone Panoramic", label: "360° Campus — Kadi Highway" },
+];
+
 export default function HomePage() {
   const { openQuoteModal } = useLayoutModal();
+
 
   const productIcons: Record<string, React.ReactNode> = {
     "dust-collection-systems": <Wind className="w-6 h-6 text-[#F25920]" />,
@@ -56,112 +63,85 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen bg-white text-slate-800">
       
       {/* =========================================================================
-          SECTION 1: HERO (Clean Light Theme & Layout with SVG Airflow Graphic)
+          SECTION 1: HERO (Full-Width Background Image with Overlay)
          ========================================================================= */}
-      <section className="relative bg-gradient-to-b from-[#F8FAFC] via-[#FFFFFF] to-[#FDEEE8]/30 pt-12 sm:pt-20 pb-20 sm:pb-28 overflow-hidden border-b border-slate-200/70">
-        {/* Light industrial grid background */}
-        <div className="absolute inset-0 bg-industrial-grid-light opacity-60 pointer-events-none" />
+      <section
+        className="relative pt-16 sm:pt-28 pb-24 sm:pb-36 overflow-hidden border-b border-slate-200/70"
+        style={{
+          backgroundImage: "url('/images/plant-aerial-1.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0E0C29]/70 via-[#0E0C29]/55 to-[#0E0C29]/30 pointer-events-none" />
         
-        {/* Subtle ambient warm glow */}
-        <div className="absolute top-10 right-10 w-[500px] h-[500px] bg-orange-100/50 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-indigo-50/60 rounded-full blur-[120px] pointer-events-none" />
+        {/* Subtle warm accent glow */}
+        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#0E0C29]/75 to-transparent pointer-events-none" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl space-y-6 text-center lg:text-left">
             
-            {/* Hero Left Content (7 Cols) */}
-            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              
-              {/* Badge */}
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-2xs text-xs font-bold text-[#26235E]">
-                <span className="w-2 h-2 rounded-full bg-[#F25920] animate-pulse" />
-                <span>Heavy Industrial Equipment Manufacturer • Ahmedabad, Gujarat</span>
-              </div>
-
-              {/* Main Headline in rich navy */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#26235E] leading-[1.08]">
-                Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#26235E] via-[#F25920] to-[#E04B14]">Cleaner Air</span> for Indian Industry.
-              </h1>
-
-              {/* Subheadline */}
-              <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                Dust Collection Systems, Air Pollution Control Equipment &amp; Centrifugal Blowers — designed, manufactured, and installed by <strong>Scimax Industries</strong>.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-                <button
-                  onClick={() => openQuoteModal()}
-                  className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-white bg-[#F25920] hover:bg-[#D84813] transition-all shadow-lg hover:shadow-orange-500/20 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center cursor-pointer group"
-                >
-                  <span>Get a Quote</span>
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </button>
-
-                <Link
-                  href="/products"
-                  className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-[#26235E] hover:text-white border-2 border-[#26235E] hover:bg-[#26235E] transition-all flex items-center justify-center shadow-2xs"
-                >
-                  <span>View Products</span>
-                </Link>
-              </div>
-
-              {/* Small ISO 9001:2015 / Make in India / IndiaMART badges */}
-              <div className="pt-6 border-t border-slate-200/80 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-slate-600">
-                <div className="flex items-center space-x-2">
-                  <Award className="w-4 h-4 text-[#F25920]" />
-                  <span className="font-bold text-slate-800">ISO 9001:2015</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <ShieldCheck className="w-4 h-4 text-[#F25920]" />
-                  <span className="font-bold text-slate-800">Make in India</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#F25920]" />
-                  <span className="font-bold text-slate-800">IndiaMART Verified</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="font-mono text-xs font-black text-[#F25920]">G6.3</span>
-                  <span className="font-bold text-slate-800">ISO 1940 Balanced</span>
-                </div>
-              </div>
-
+            {/* Badge */}
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-lg text-xs font-bold text-white">
+              <span className="w-2 h-2 rounded-full bg-[#F25920] animate-pulse" />
+              <span>Heavy Industrial Equipment Manufacturer • Ahmedabad, Gujarat</span>
             </div>
 
-            {/* Hero Right: Real Industrial Manufacturing Facility Image */}
-            <div className="lg:col-span-5 relative flex items-center justify-center">
-              <div className="relative w-full aspect-square max-w-[500px] rounded-3xl overflow-hidden shadow-2xl border border-slate-200/90 group bg-slate-100">
-                <Image
-                  src="/images/industries-hero.jpg"
-                  alt="Scimax Industries Dust Collection & Heavy Blowers Facility"
-                  fill
-                  priority
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 500px"
-                />
-                
-                {/* Subtle gradient overlay at bottom for clarity and depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0E0C29]/75 via-[#0E0C29]/15 to-transparent pointer-events-none" />
+            {/* Main Headline */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.08]">
+              Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F25920] via-[#FF7A45] to-[#FFB088]">Cleaner Air</span> for Indian Industry.
+            </h1>
 
-                {/* Floating Metric Callouts in light theme glassmorphism */}
-                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-xl border border-slate-200/90 shadow-lg text-left">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500 block">ID Fan Capacity</span>
-                  <span className="text-sm font-extrabold text-[#26235E] font-mono">8,00,000 m³/hr</span>
-                </div>
+            {/* Subheadline */}
+            <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+              Dust Collection Systems, Air Pollution Control Equipment &amp; Centrifugal Blowers — designed, manufactured, and installed by <strong className="text-white">Scimax Industries</strong>.
+            </p>
 
-                <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-xl border border-orange-200/90 shadow-lg text-right">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#F25920] block">Filtration Standard</span>
-                  <span className="text-sm font-extrabold text-[#26235E] font-mono">&lt; 30 mg/Nm³ SPM</span>
-                </div>
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <button
+                onClick={() => openQuoteModal()}
+                className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-white bg-[#F25920] hover:bg-[#D84813] transition-all shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center cursor-pointer group"
+              >
+                <span>Get a Quote</span>
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </button>
 
-                <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-200/90 shadow-md flex items-center space-x-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span className="text-[11px] font-bold text-slate-800">ISO 9001:2015 Heavy Plant</span>
-                </div>
+              <Link
+                href="/products"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-white hover:text-[#26235E] border-2 border-white/40 hover:bg-white hover:border-white transition-all flex items-center justify-center backdrop-blur-sm"
+              >
+                <span>View Products</span>
+              </Link>
+            </div>
+
+            {/* Certification badges */}
+            <div className="pt-6 border-t border-white/15 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-slate-300">
+              <div className="flex items-center space-x-2">
+                <Award className="w-4 h-4 text-[#F25920]" />
+                <span className="font-bold text-white">ISO 9001:2015</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <ShieldCheck className="w-4 h-4 text-[#F25920]" />
+                <span className="font-bold text-white">Make in India</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <CheckCircle2 className="w-4 h-4 text-[#F25920]" />
+                <span className="font-bold text-white">IndiaMART Verified</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span className="font-mono text-xs font-black text-[#F25920]">G6.3</span>
+                <span className="font-bold text-white">ISO 1940 Balanced</span>
               </div>
             </div>
 
           </div>
+
+
+
+
         </div>
       </section>
 
@@ -257,9 +237,104 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
+          SECTION 3B: MANUFACTURING PLANT GALLERY (Real Facility Photos)
+         ========================================================================= */}
+      <section className="py-20 bg-[#F8FAFC] border-y border-slate-200/70">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+            <span className="text-xs font-bold text-[#F25920] uppercase tracking-widest">
+              Gujarat Manufacturing Presence
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-[#26235E] tracking-tight">
+              Our World-Class Manufacturing Facility
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+              State-of-the-art heavy engineering plant on the Kadi–Mehsana Highway, spanning 15,000+ sq. ft. with overhead cranes, dynamic balancing bays, and fabrication floors.
+            </p>
+          </div>
+
+          {/* Cinematic Bento Image Grid — 3 unique angles */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 auto-rows-[260px] sm:auto-rows-[300px]">
+            
+            {/* Large featured — Aerial drone shot */}
+            <div className="md:col-span-7 relative rounded-2xl overflow-hidden group shadow-lg border border-slate-200">
+              <Image
+                src="/images/plant-aerial-1.jpg"
+                alt="Scimax Industries — Aerial View of Kadi Manufacturing Plant"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 60vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0E0C29]/70 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <div className="bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-slate-200/90 shadow-lg inline-block">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#F25920] block">Drone View</span>
+                  <span className="text-sm font-extrabold text-[#26235E]">Heavy Engineering Plant — Kadi, Mehsana</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Front view */}
+            <div className="md:col-span-5 relative rounded-2xl overflow-hidden group shadow-lg border border-slate-200">
+              <Image
+                src="/images/plant-front-1.jpg"
+                alt="Scimax Industries — Plant Entrance & Fabrication Bay"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 40vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0E0C29]/70 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-4 left-4">
+                <div className="bg-white/95 backdrop-blur-md px-3.5 py-2 rounded-xl border border-slate-200/90 shadow-lg">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-slate-500 block">Fabrication Bay</span>
+                  <span className="text-sm font-extrabold text-[#26235E]">Plant I — Front View</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Wide aerial panoramic — full width */}
+            <div className="md:col-span-12 relative rounded-2xl overflow-hidden group shadow-lg border border-slate-200">
+              <Image
+                src="/images/plant-aerial-2.jpg"
+                alt="Scimax Industries — Full Campus Panoramic Aerial"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 100vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0E0C29]/70 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <div className="bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-orange-200/90 shadow-lg inline-block">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#F25920] block">Panoramic Campus</span>
+                  <span className="text-sm font-extrabold text-[#26235E]">15,000+ Sq. Ft. Fabrication, Assembly & Testing</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Plant metrics strip */}
+          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { value: "15,000+", label: "Sq. Ft. Covered Area", color: "text-[#F25920]" },
+              { value: "10T", label: "Overhead Crane Capacity", color: "text-[#26235E]" },
+              { value: "ISO 1940", label: "G6.3 Balancing Bay", color: "text-[#F25920]" },
+              { value: "24/7", label: "Production Capability", color: "text-[#26235E]" },
+            ].map((m) => (
+              <div key={m.label} className="bg-white rounded-xl p-5 border border-slate-200 shadow-xs text-center hover:shadow-md transition-shadow">
+                <span className={`text-2xl sm:text-3xl font-black font-mono ${m.color}`}>{m.value}</span>
+                <span className="block text-xs text-slate-500 mt-1 font-semibold">{m.label}</span>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
           SECTION 4: PRODUCT RANGE BENTO GRID (Asymmetric modern layout)
          ========================================================================= */}
-      <section className="py-20 bg-[#F8FAFC] border-y border-slate-200/70" id="products">
+      <section className="py-20 bg-white border-y border-slate-200/70" id="products">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
